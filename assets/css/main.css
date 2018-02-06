@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  background-color: #fff; }
+
+h1 {
+  color: black;
+  text-align: center; }
+
+p {
+  text-align: center; }
+  p:first-letter {
+    font-size: 2em; }
