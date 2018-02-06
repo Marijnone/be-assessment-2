@@ -33,3 +33,9 @@ Nadat je files zijn gecommit voer je git push in, dit stuurt alle bestanden naar
 * git commit -m 'type wat je hebt toegevoegd'
 * git push
 * check je github branch en vraag een pull request aan.
+
+
+## Start project
+* Use npm install when u are in the directory for the first time to install all the node packages
+* Use npm start to open te liveserver
+* under assets u can place your custom html files.
