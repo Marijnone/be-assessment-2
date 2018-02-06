@@ -5,7 +5,7 @@
 
 1 Open terminal  
 2 cd naar de map waar je het project opslaat  
-3 git remote add origin https://github.com/timruiterkamp/code-elements.git  of git clone https://github.com/timruiterkamp/code-elements.git
+3 git remote add origin https://github.com/timruiterkamp/code-elements.git  of git clone https://github.com/timruiterkamp/code-elements.git  
 4 git branch -> kijk of je naam er tussen staat  
 5 git checkout 'hier je naam'. Staat je naam nog niet tussen git branch, dan -> git checkout -b 'hier je naam'  
 6 check even met git status of je echt in je eigen branch zit  
