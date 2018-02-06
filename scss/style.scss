@@ -1,0 +1,21 @@
+$badass: #fff;
+
+body { 
+  margin: 0; 
+  background-color: $badass; 
+}
+
+h1 {
+  color:black;
+  text-align: center;
+  font-size: 6em;
+}
+
+p {
+  text-align: center;
+
+  &:first-letter {
+    font-size: 2em;
+  }
+}
+
