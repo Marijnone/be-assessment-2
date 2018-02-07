@@ -37,11 +37,11 @@ after the files are commited use git push, this will send all the files to your 
 ```
 
 ## Start project
-1 Use npm install when u are in the directory for the first time to install all the node packages
-2 Use npm start to open te liveserver
-3 Open a new terminal tab and type: npm run watch-css
-4 Keep the terminals open and simply add another terminal tab for your git actions
-5 And off you go!
+1 Use npm install when u are in the directory for the first time to install all the node packages  
+2 Use npm start to open te liveserver  
+3 Open a new terminal tab and type: npm run watch-css  
+4 Keep the terminals open and simply add another terminal tab for your git actions  
+5 And off you go!  
 
 ## Project setup
 * under assets u can place your custom html files.
