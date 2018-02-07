@@ -1,41 +1,48 @@
-# code-elements
+# Code-elements
 
 
 ## Installation
-
+```
 1 Open terminal  
-2 cd naar de map waar je het project opslaat  
-3 git remote add origin https://github.com/timruiterkamp/code-elements.git  of git clone https://github.com/timruiterkamp/code-elements.git  
-4 git branch -> kijk of je naam er tussen staat  
-5 git checkout 'hier je naam'. Staat je naam nog niet tussen git branch, dan -> git checkout -b 'hier je naam'  
-6 check even met git status of je echt in je eigen branch zit  
+2 cd to the map where you will save the project 
+3 git remote add origin https://github.com/timruiterkamp/code-elements.git  or git clone https://github.com/timruiterkamp/code-elements.git  
+4 git branch -> check if your name already exists  
+5 git checkout 'your name'. if your name doesn't exist yet use: git checkout -b 'hier je naam'  
+6 check with git status if you are really in the right branch.
 7 have fun :)    
-
+```
 
 ## Work in the repo
-Na de installatie heb je de repo op je pc staan en met git checkout 'je naam' werk je onder je eigen naam.
-Je kunt nu gewoon mappen en bestanden toevoegen!
+After the installation the repo will be on your computer. To use the repo just 'cd' to your folder and make sure to use git checkout 'your name' to work in your personal folder. You can just add as many files as you want as long it's under your personal branch.
 
-> Voor elk nieuw project dat je maakt, graag een nieuwe branch! 
+> Please make a new branch for each project 
 
-**Wil je je werk pushen naar de repo om het op te slaan:**
-
+**Want to push your work to the repo?**
+```
 * git add -A stages All
 * git add . stages new and modified, without deleted
 * git add -u stages modified and deleted, without new
+```
+In the most cases you use git add -A to upload all the changed files.
+after the files are 'staged' use git commit -m 'your message' to commit the files. 
+after the files are commited use git push, this will send all the files to your personal branch on github. If you would go to the github repo and look at your branch, the new created or changed files will be visible.
 
-Normaal gebruik je git add -A om al je bestanden te uploaden
-Nadat de files zijn 'gestaged' gebruik je git commit -m 'type wat je hebt toegevoegd'. 
-Nadat je files zijn gecommit voer je git push in, dit stuurt alle bestanden naar de github repo. Als je nu in github onder je eigen branch kijkt zul je je nieuwe bestanden zien staan onder commits.
-
-**in het kort:**
+**Short story:**
+```
+* git status (to check if ur on the right branch)
 * git add -A
-* git commit -m 'type wat je hebt toegevoegd'
+* git commit -m 'your message'
 * git push
-* check je github branch en vraag een pull request aan.
-
+* check github and ask for a pull request
+```
 
 ## Start project
-* Use npm install when u are in the directory for the first time to install all the node packages
-* Use npm start to open te liveserver
+1 Use npm install when u are in the directory for the first time to install all the node packages
+2 Use npm start to open te liveserver
+3 Open a new terminal tab and type: npm run watch-css
+4 Keep the terminals open and simply add another terminal tab for your git actions
+5 And off you go!
+
+## Project setup
 * under assets u can place your custom html files.
+* under scss u can make your own scss file
