@@ -1,5 +1,5 @@
 # Code-elements
-
+With code-elements we want to have a developer playground where students can create there own small projects and build prebuild UI components to use in the future.
 
 ## Installation
 ```
