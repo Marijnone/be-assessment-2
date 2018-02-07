@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "css": "node-sass scss/style.scss -o assets/css",
-    "css:watch": "npm run css && node-sass scss/style.scss -wo assets/css",
+    "build-css": "./bin/build-css",
+    "watch-css": "./bin/watch-css",
     "start": "nodemon index.js"
     
   },
+  "events": {
+      "restart": "npm run watch-css",
+      "start": "npm run watch-css"
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/timruiterkamp/code-elements.git"

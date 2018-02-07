@@ -4,7 +4,8 @@ body {
 
 h1 {
   color: black;
-  text-align: center; }
+  text-align: center;
+  font-size: 10em; }
 
 p {
   text-align: center; }
