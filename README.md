@@ -5,7 +5,7 @@ With code-elements we want to have a developer playground where students can cre
 ```
 1 Open terminal  
 2 cd to the map where you will save the project 
-3 git remote add origin https://github.com/timruiterkamp/code-elements.git  or git clone https://github.com/timruiterkamp/code-elements.git  
+3 git clone https://github.com/timruiterkamp/code-elements.git  
 4 git branch -> check if your name already exists  
 5 git checkout 'your name'. if your name doesn't exist yet use: git checkout -b 'your name'  
 6 check with git status if you are really in the right branch.
