@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-css": "./bin/build-css",
-    "watch-css": "./bin/watch-css",
+    "build-css": "node-sass --include-path scss scss/style.scss assets/css/main.css",
+    "watch-css": "nodemon -e scss -x npm run build-css",
     "start": "nodemon index.js"
     
   },
