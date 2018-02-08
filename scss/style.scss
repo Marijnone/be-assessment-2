@@ -1,4 +1,5 @@
 $badass: #fff;
+$header-color: #000;
 
 body { 
   margin: 0; 
@@ -19,3 +20,8 @@ p {
   }
 }
 
+header {
+  background-color: $header-color;
+  color: $badass;
+  text-align: center;
+}
