@@ -1,6 +1,5 @@
 var path = require('path');
 var express = require('express');
-require('./sass-reload');
 var logger = require('morgan');
 var app = express();
 var bodyParser = require('body-parser');
