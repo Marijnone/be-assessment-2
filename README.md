@@ -13,6 +13,18 @@ With code-elements we want to have a developer playground where students can cre
 8 have fun :)    
 ```
 
+## Start project
+1 Use npm install when u are in the directory for the first time to install all the node packages  
+2 Use npm start to open te liveserver  
+3 Open a new terminal tab and type: npm run watch-css  
+4 Keep the terminals open and simply add another terminal tab for your git actions  
+5 And off you go!  
+
+## Project setup
+* under assets u can place your custom html files.
+* under scss u can make your own scss file
+
+
 ## Work in the repo
 After the installation the repo will be on your computer. To use the repo just 'cd' to your folder and make sure to use git checkout 'your name' to work in your personal folder. You can just add as many files as you want as long it's under your personal branch.
 
@@ -37,13 +49,3 @@ after the files are commited use git push, this will send all the files to your 
 * check github and ask for a pull request
 ```
 
-## Start project
-1 Use npm install when u are in the directory for the first time to install all the node packages  
-2 Use npm start to open te liveserver  
-3 Open a new terminal tab and type: npm run watch-css  
-4 Keep the terminals open and simply add another terminal tab for your git actions  
-5 And off you go!  
-
-## Project setup
-* under assets u can place your custom html files.
-* under scss u can make your own scss file
