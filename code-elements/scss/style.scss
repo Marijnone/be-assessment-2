@@ -9,7 +9,9 @@ body {
   background-color: $background; 
   
 }
-
+p {
+  font-family: 'Montserrat'
+}
 h1{
   font-family: 'Fredoka One', cursive;
   font-size: 2em;
@@ -39,18 +41,35 @@ button {
   text-decoration: none;
   border:none;
   margin-top:1em;
-}
- button:hover {
+
+ &:hover {
   background-color: #76fcfc;
   text-decoration: none;
+  }
 }
 
-p {
-  text-align: center;
+.matches{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 6em;
+}
 
-  &:first-letter {
-    font-size: 2em;
-  }
+.Form form{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+label{
+  font-family: 'Fredoka One', cursive;
+   font-size: 1em;
+   color: #ff5bbc;
+}
+
+.button-wrap{
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
 }
 
 header {
