@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  background-color: #fff; }
+
+h1 {
+  color: red;
+  text-align: center;
+  font-size: 10em; }
+
+p {
+  text-align: center; }
+  p:first-letter {
+    font-size: 2em; }
+
+header {
+  background-color: #000;
+  color: #fff;
+  text-align: center; }

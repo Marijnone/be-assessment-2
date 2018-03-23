@@ -1,0 +1,28 @@
+$badass: #fff;
+$header-color: #000;
+
+body { 
+  margin: 0; 
+  background-color: $badass; 
+  
+}
+
+h1 {
+  color:red;
+  text-align: center;
+  font-size: 10em;
+}
+
+p {
+  text-align: center;
+
+  &:first-letter {
+    font-size: 2em;
+  }
+}
+
+header {
+  background-color: $header-color;
+  color: $badass;
+  text-align: center;
+}
