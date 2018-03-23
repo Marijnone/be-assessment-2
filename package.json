@@ -7,12 +7,11 @@
     "build-css": "node-sass --include-path scss scss/style.scss assets/css/main.css",
     "watch-css": "nodemon -e scss -x npm run build-css",
     "start": "nodemon index.js"
-    
   },
   "events": {
-      "restart": "npm run watch-css",
-      "start": "npm run watch-css"
-    },
+    "restart": "npm run watch-css",
+    "start": "npm run watch-css"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/timruiterkamp/code-elements.git"
