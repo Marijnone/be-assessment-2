@@ -1,16 +1,48 @@
-$badass: #fff;
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Fredoka+One|Raleway);
+
+$background: #ecf0f1;
 $header-color: #000;
 
 body { 
   margin: 0; 
-  background-color: $badass; 
+  background-color: $background; 
   
 }
 
-h1 {
-  color:red;
-  text-align: center;
-  font-size: 10em;
+h1{
+  font-family: 'Fredoka One', cursive;
+  font-size: 2em;
+  color: #7f47cb
+}
+h3{
+  font-size: 15px;
+  margin-bottom: 0;
+  color: #303F9F;
+  font-family: 'Montserrat', sans-serif;
+}
+article{
+  background-color: #ff5bbc75;
+  /* border-radius: 50%; */
+  padding:.5em 1em .5em 1em;
+  opacity: 12%;
+}
+button {
+  background: #ff5bbc;
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border:none;
+  margin-top:1em;
+}
+ button:hover {
+  background-color: #76fcfc;
+  text-decoration: none;
 }
 
 p {
@@ -23,6 +55,5 @@ p {
 
 header {
   background-color: $header-color;
-  color: $badass;
   text-align: center;
 }
