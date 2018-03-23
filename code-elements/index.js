@@ -1,9 +1,11 @@
+var particleJs = require("./js/particle.js")
 var path = require('path');
 var express = require('express');
 var logger = require('morgan');
 var app = express();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -13,6 +15,7 @@ app.use(logger('dev'));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'assets'))); 
+app.use(express.static(path.join(__dirname,'js')));
 
 // NEW: Handle requests for a single book
 app.get('/books/:id', function(req, res) {
