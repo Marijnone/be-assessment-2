@@ -5,5 +5,5 @@ let naam = {
 
 console.log(naam.leeftijd);
 console.log('doet het');
-console.log("Hi");
+
 
