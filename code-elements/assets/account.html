@@ -14,6 +14,7 @@
     <section class="Form">
 
         <form action="submit">
+            
             <label for="name">naam:</label>
             <input type="text" id="name" />
 
@@ -25,14 +26,22 @@
             <input type="radio" name="man" id="man" />
             <label for="geslacht">Vrouw</label>
             <input type="radio" name="man" id="vrouw">
-            <!-- vragen over ijs -->
+
+          
             <label for="ijs"> Ben jij een danser of een zitter? 🕺</label>
             <label for="ijs">Danser</label>
             <input type="radio" name="dans" id="dancer">
             <label for="ijs">Zitter</label>
             <input type="radio" name="dans" id="zitter">
 
-            <label for=""></label>
+
+            <label for="opzoek">Ik ben opzoek naar een:</label>          
+            
+             <select name="man1"> <!--Supplement an id here instead of using 'text'-->
+                <option value="Man">Man</option> 
+                <option value="Vrouw" selected>Vrouw</option>
+                <option value="Nogender">Festival maatje (Geslacht maakt niet uit)</option>
+              </select>
 
 
             <label for="foto"> Upload een leuke profiel foto</label>

@@ -146,7 +146,7 @@ img {
   margin-bottom: 2em;
 }
 
-// Festivals 
+
 
 .card button{
   width: 6em;
@@ -154,28 +154,33 @@ img {
 .card .match{
   width: 12em;
 }
-
-.festivals div{
-  display: flex;
-}
-
+// Festivals page
 .festivals{
-    display: grid;
-    grid-template-rows:    repeat(4, 150px);
-    grid-template-columns: repeat(2, 1fr);
-    
-
-
-& h3{
+  display: grid;
+}
+.festivals label{
+  display: grid;
+  grid-template-columns: 1fr  ;
+  grid-template-rows: repeat(2, 50px);
+  grid-gap: 1rem;
+  & h3 {
     text-align: center;
-    font-size: 15px;
-    margin-bottom: 0;
-    color: #303F9F;
-    font-family: 'Montserrat', sans-serif;
-    margin-top: 4.4em;
-    
   }
 }
+
+
+
+
+// & h3{
+//     text-align: center;
+//     font-size: 15px;
+//     margin-bottom: 0;
+//     color: #303F9F;
+//     font-family: 'Montserrat', sans-serif;
+//     margin-top: 4.4em;
+    
+//   }
+
 // Tabbar home
 div.tabbar{
   height: 4em;
