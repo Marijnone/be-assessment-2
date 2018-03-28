@@ -1,101 +1,83 @@
-// var sketchJs = require("sketch-js")
-// var particleJs = require("./js/particle.js")
 var path = require("path");
+
+var bodyParser = require("body-parser");
 var express = require("express");
 var logger = require("morgan");
-var app = express();
-var bodyParser = require("body-parser");
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var mysql = require("mysql");
-const argon2 = require('argon2');
 
-app.set("views", "views");
-app.set("view engine", "ejs");
-
-// app.post('/sign-up', signup);
-// Log the requests
-app.use(logger("dev"));
-
-// Serve static files
-app.use(express.static(path.join(__dirname, "assets")));
-app.use(express.static(path.join(__dirname, "js")));
-app.get("/account", account);
-app.get("/", index);
-app.get("/festivals", festivals);
-app.get("/home", home);
-app.get('/login',loginPage);
-app.post('/login',login);
-app.post('/register',signUpForm )
-// NEW: Handle requests for a single book
-// app.get('/books/:id', function(req, res) {
-//     var bookData = {title: "the name of the book", author: "some writer"};
-//     res.render('bookView.ejs', {book: bookData});
-//   });
 require("dotenv").config();
 
-var connection = mysql.createConnection({
-  // debug:true,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
-});
-connection.connect();
+var connection = mysql
+  .createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+  })
+  .connect();
+
+var app = express()
+  .set("views", "views")
+  .set("view engine", "ejs")
+
+  .use(logger("dev"))
+  .use(express.static(path.join(__dirname, "assets")))
+  .use(express.static(path.join(__dirname, "js")))
+  .use(bodyParser.urlencoded({ extended: false }))
+
+  app.get("/account", account);
+  app.get("/", index);
+  app.get("/festivals", festivals);
+  app.get("/home", home);
+
+  app.post("/login", login);
+  app.post("/register", signUpForm)
+  .listen(3000, onServerStart);
 
 function account(req, res) {
   res.render("account.ejs");
 }
+
 function index(req, res) {
   res.render("index.ejs");
 }
+
 function festivals(req, res) {
   res.render("festivals.ejs");
 }
+
 function profile(req, res) {
   res.render("profile.ejs");
 }
+
 function home(req, res) {
   res.render("home.ejs");
 }
-function login(req,res,next){
+
+function login(req, res){
   res.render("login.ejs");
 }
-//function to 
-function loginPage(req,res,next){
 
-}
-
-
-// Fire it up!
-app.listen(3000);
-console.log("Listening on port 3000");
-
-
-
-// Signup function + password check
-function signUpForm(res,req,next) {
-
-  var username = req.body.username ;
-  var email = req.body.email ;
-  var password = req.body.password ;
-  var geslacht = req.body.geslacht ;
-  var voorkeur1 = req.body.voorkeur1 ;
-  var opzoeknaar = req.opzoeknaar ;
-  var min = 8 ;
-  var max = 160 ;
+function signUpForm(req, res, next) {
+  var username = req.body.username;
+  var email = req.body.email;
+  var password = req.body.password;
+  var geslacht = req.body.geslacht;
+  var voorkeur1 = req.body.voorkeur1;
+  var opzoeknaar = req.opzoeknaar;
+  var min = 8;
+  var max = 160;
 
   if (!username || !password) {
-    res.status(400).send("Username or password are missing");
-
-    return;
+    return res.status(400).send("Username or password are missing");
   }
+
   if (password.length < min || password.length > max) {
-    res
+    return res
       .status(400)
       .send("Password must be between " + min + " and " + max + " characters");
-    return;
   }
-  // connection with SQL
+
   connection.query(
     "SELECT * FROM gebruikers WHERE username = ?",
     username,
@@ -104,14 +86,20 @@ function signUpForm(res,req,next) {
 
   function done(err, data) {
     if (err) {
-      next(err);
-    } else if (data.length !== 0) {
-      res.status(409).send("Username already in use");
-    } else {
-      argon2.hash(password).then(onhash, next);
+      return next(err);
     }
+
+    if (data.length !== 0) {
+      return res.status(409).send("Username already in use");
+    }
+
+    return argon2
+      .hash(password)
+      .then(saveToDatabase)
+      .catch(next);
   }
-  function onhash(hash) {
+
+  function saveToDatabase(hash) {
     connection.query(
       "INSERT INTO gebruiker SET ?",
       {
@@ -127,11 +115,14 @@ function signUpForm(res,req,next) {
 
     function oninsert(err) {
       if (err) {
-        next(err);
-      } else {
-        // Signed up!
-        res.redirect("/festivals"); //session toevoegen om ingelogd te blijven
+        return next(err);
       }
+
+      return res.redirect("/festivals");
     }
   }
+}
+
+function onServerStart() {
+  console.log("🌐  Server started. http://localhost:3000")
 }
