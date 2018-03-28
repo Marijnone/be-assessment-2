@@ -33,7 +33,7 @@ app.post('/register',signUpForm )
 require("dotenv").config();
 
 var connection = mysql.createConnection({
-  debug:true,
+  // debug:true,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -112,7 +112,7 @@ function signUpForm(res,req,next) {
   }
   function onhash(hash) {
     connection.query(
-      "INSERT INTO users SET ?",
+      "INSERT INTO gebruiker SET ?",
       {
         username: username,
         email: email,
