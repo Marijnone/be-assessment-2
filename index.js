@@ -79,7 +79,7 @@ function signUpForm(req, res, next) {
   }
 
   connection.query(
-    "SELECT * FROM gebruikers WHERE username = ?",
+    "SELECT * FROM gebruiker WHERE username = ?",
     username,
     done
   );
