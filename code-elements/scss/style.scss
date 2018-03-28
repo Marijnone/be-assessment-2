@@ -160,9 +160,10 @@ img {
 }
 .festivals label{
   display: grid;
-  grid-template-columns: 1fr  ;
-  grid-template-rows: repeat(2, 50px);
-  grid-gap: 1rem;
+  grid-template-columns: 1fr ;
+  grid-template-rows: 2fr;
+  grid-gap: 0.2em;
+  color: #3F51B5;
   & h3 {
     text-align: center;
   }
