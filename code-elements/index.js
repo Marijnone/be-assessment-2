@@ -7,6 +7,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var mysql = require("mysql");
+const argon2 = require('argon2');
 
 app.set("views", "views");
 app.set("view engine", "ejs");
