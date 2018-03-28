@@ -1,9 +1,9 @@
-let naam = {
-    leeftijd: 38,
-    naam: 'Tim'
-}
+// let naam = {
+//     leeftijd: 38,
+//     naam: 'Tim'
+// }
 
-console.log(naam.leeftijd);
+console.log(naam.leeftijd)
 console.log('doet het');
 
 

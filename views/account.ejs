@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Account</title>
+</head>
+
+<body>
+    <h1>Festimatch 🎉</h1>
+
+    <h3>Registreer hier je account</h3>
+    <section class="Form">
+
+        <form action="/register" method="post">
+            
+            <label for="username">naam:</label>
+            <input name="username" type="text">
+
+            <label for="email">E-mail</label>
+            <input type="email" name="email">
+
+            <label for="wachtwoord">Wachtwoord</label>
+            <input type="password" name="wachtwoord">
+
+            <label for="geslacht">Geslacht:</label>
+            <label for="geslacht">Man</label>
+            <input type="radio" name="man" value="man" />
+            <label for="geslacht">Vrouw</label>
+            <input type="radio" name="man" value="vrouw">
+
+          
+            <label for="ijs"> Ben jij een danser of een zitter? 🕺</label>
+            <label for="ijs">Danser</label>
+            <input type="radio" name="dans" value="dancer">
+            <label for="ijs">Zitter</label>
+            <input type="radio" name="dans" value="zitter">
+
+
+            <label for="opzoek">Ik ben opzoek naar een:</label>          
+            
+             <select name="man1"> <!--Supplement an id here instead of using 'text'-->
+                <option value="man">Man</option> 
+                <option value="vrouw" selected>Vrouw</option>
+                <option value="nogender">Festival maatje (Geslacht maakt niet uit)</option>
+              </select>
+
+
+            <label for="foto"> Upload een leuke profiel foto</label>
+            <button>Upoad</button>
+
+            <input type="submit" value="ga verder"> 
+       </form>
+            
+            <!-- <div class="button-wrapper">
+                 <form action="/festivals" method="get">   </form> 
+            </div> -->
+       
+    </section>
+   
+</body>
+
+</html>

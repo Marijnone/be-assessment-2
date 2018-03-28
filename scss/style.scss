@@ -1,28 +1,218 @@
-$badass: #fff;
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Fredoka+One|Raleway);
+
+$background: #ecf0f1;
 $header-color: #000;
 
 body { 
   margin: 0; 
-  background-color: $badass; 
+  background-color: $background; 
   
 }
-
-h1 {
-  color:red;
-  text-align: center;
-  font-size: 10em;
-}
-
 p {
-  text-align: center;
+  font-family: 'Montserrat'
+}
+h1{
+  font-family: 'Fredoka One', cursive;
+  font-size: 2em;
+  color: #7f47cb
+}
+h3{
+  font-size: 15px;
+  margin-bottom: 0;
+  color: #303F9F;
+  font-family: 'Montserrat', sans-serif;
+}
+article{
+  background-color: #ff5bbc75;
+  /* border-radius: 50%; */
+  padding:.5em 1em .5em 1em;
+  opacity: 12%;
+}
+button {
+  background: #ff5bbc;
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border:none;
+  margin-top:1em;
 
-  &:first-letter {
-    font-size: 2em;
+ &:hover {
+  background-color: #76fcfc;
+  text-decoration: none;
   }
 }
 
-header {
-  background-color: $header-color;
-  color: $badass;
+.matches{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 6em;
+}
+
+.Form form{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+label{
+  font-family: 'Montserrat', sans-serif;
+   font-size: 1em;
+   color: #303F9F;
+}
+
+.button-wrap{
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+img {
+  max-width: 100%;
+  height:15em;
+
+}
+
+// Profile Cards
+.card {
+  background-color: #f4f4f4;
+  width: 300px;
+  margin: 10px auto;
+  box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.7);
+}
+
+.card-header {
+  overflow: hidden;
+  width: 100%;
+  max-height: 200px;
+}
+
+.card-header img{
+  width: 100%;
+  filter: hue-rotate(4em)
+}
+
+.card-content {
+  width: 85%;
+  margin: 35px auto;
+  }
+
+.card-content h3 {
+  font-size: 25px;
+  margin-bottom: 0;
+  color: #303F9F;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.card-content h4 {
+  font-size: 14px;
+  margin-top: 0;
+  color: #ff5bbc;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.card-content p {
+  color: #727272;
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+  
+}
+
+.card-footer {
+  border-top: solid 1px #B6B6B6;
+  padding: 5px;
+}
+
+.card-footer ul {
+  padding: 0;
+  width: 90%;
+  margin: auto;
   text-align: center;
 }
+
+ card-footer ul li{
+  display: inline-block;
+  list-style: none;
+  margin: 5px;
+  }
+
+.card-footer ul li i {
+  font-size: 2em;
+  color: #3F51B5;
+  margin-bottom: 2em;
+}
+
+
+
+.card button{
+  width: 6em;
+}
+.card .match{
+  width: 12em;
+}
+// Festivals page
+.festivals{
+  display: grid;
+}
+.festivals label{
+  display: grid;
+  grid-template-columns: 1fr ;
+  grid-template-rows: 2fr;
+  grid-gap: 0.2em;
+  color: #3F51B5;
+  & h3 {
+    text-align: center;
+  }
+}
+
+
+
+
+// & h3{
+//     text-align: center;
+//     font-size: 15px;
+//     margin-bottom: 0;
+//     color: #303F9F;
+//     font-family: 'Montserrat', sans-serif;
+//     margin-top: 4.4em;
+    
+//   }
+
+// Tabbar home
+div.tabbar{
+  height: 4em;
+  display: flex;
+  background-color: #f4f4f4;
+  position: fixed; 
+  width: 100%;
+  left:0em;  
+  justify-content: space-evenly;
+  bottom: 0em;
+  box-shadow: 0px 0px 5px 2px #b9b9b969;
+  
+
+
+
+& tabbar a {
+ font-family: 'Montserrat';
+ text-decoration: none;
+ list-style: none;
+ color: black;
+ box-sizing: border-box;
+  }
+}
+
+canvas {
+ position: fixed;
+ left: 0;
+ top: 0;
+ width: 100%;
+ height: 100%;
+ z-index: -1;
+}
+
+
