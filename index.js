@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var express = require("express");
 var logger = require("morgan");
 var mysql = require("mysql");
-
+var argon2 = require("argon2");
 require("dotenv").config();
 
 var connection = mysql
@@ -77,7 +77,6 @@ function signUpForm(req, res, next) {
       .status(400)
       .send("Password must be between " + min + " and " + max + " characters");
   }
-
   connection.query(
     "SELECT * FROM gebruiker WHERE username = ?",
     username,
