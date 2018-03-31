@@ -5,17 +5,23 @@ var express = require("express");
 var logger = require("morgan");
 var mysql = require("mysql");
 var argon2 = require("argon2");
+var session = require("express-session");
 require("dotenv").config();
 
-var connection = mysql
-  .createConnection({
+var connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
   })
-  .connect();
-
+  connection.connect(function(err) {
+    if (err) {
+      console.error('error connecting: ' + err.stack);
+      return;
+    }
+  });
+  // console.log(connection);
+  
 var app = express()
   .set("views", "views")
   .set("view engine", "ejs")
@@ -24,14 +30,21 @@ var app = express()
   .use(express.static(path.join(__dirname, "assets")))
   .use(express.static(path.join(__dirname, "js")))
   .use(bodyParser.urlencoded({ extended: false }))
+  .use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET
+  }))
 
   app.get("/account", account);
   app.get("/", index);
   app.get("/festivals", festivals);
   app.get("/home", home);
+  app.get("/login", login);
 
   app.post("/login", login);
   app.post("/register", signUpForm)
+  app.post("/login",Inloggen)
   .listen(3000, onServerStart);
 
 function account(req, res) {
@@ -58,13 +71,60 @@ function login(req, res){
   res.render("login.ejs");
 }
 
+function Inloggen(req, res, next){
+  var username = req.body.username ;
+  var password = req.body.password ;
+
+  if (!username || !password) {
+    res
+      .status(400)
+      .send('Username or password are missing')
+
+    return
+  }
+
+  connection.query(
+    'SELECT * FROM gebruiker WHERE username = ?',
+    username,
+    done
+  )
+
+  function done(err, data) {
+    var user = data && data[0]
+
+    if (err) {
+      next(err)
+    } else if (user) {
+      argon2
+        .verify(user.hash, password)
+        .then(onverify, next)
+    } else {
+      res
+        .status(401)
+        .send('Username does not exist')
+    }
+
+    function onverify(match) {
+      if (match) {
+        req.session.user = {username: user.username};
+        // Logged in!
+        res.redirect('/home')
+      } else {
+        res.status(401).send('Password incorrect')
+      }
+     }
+    }
+   }
+ 
+
+
 function signUpForm(req, res, next) {
   var username = req.body.username;
   var email = req.body.email;
   var password = req.body.password;
   var geslacht = req.body.geslacht;
   var voorkeur1 = req.body.voorkeur1;
-  var opzoeknaar = req.opzoeknaar;
+  var opzoeknaar = req.body.opzoek;
   var min = 8;
   var max = 160;
 
@@ -116,10 +176,21 @@ function signUpForm(req, res, next) {
       if (err) {
         return next(err);
       }
-
+      req.session.user = {username: username}
       return res.redirect("/festivals");
     }
   }
+}
+// WIP/////
+function AddtoFestivalDB(req, res, next){
+  connection.query(
+    "INSERT INTO festival SET ?",
+    {
+      naam: username,
+      
+    },
+    oninsert
+  );
 }
 
 function onServerStart() {
