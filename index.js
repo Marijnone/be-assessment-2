@@ -194,6 +194,11 @@ function AddtoFestivalDB(req, res, next){
   );
 }
 
+function RenderUsers(req, res, next){
+  connection.query("SELECT `id`, `username` FROM `gebruiker`;")
+
+}
+
 function onServerStart() {
   console.log("🌐  Server started. http://localhost:3000")
 }
