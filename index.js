@@ -42,9 +42,10 @@ var app = express()
   app.get("/home", home);
   app.get("/login", login);
 
-  app.post("/login", login);
+  // app.post("/login", login);
   app.post("/register", signUpForm)
-  app.post("/login",Inloggen)
+  app.post("/log-in",inloggen)
+
   .listen(3000, onServerStart);
 
 function account(req, res) {
@@ -71,7 +72,7 @@ function login(req, res){
   res.render("login.ejs");
 }
 
-function Inloggen(req, res, next){
+function inloggen(req, res, next){
   var username = req.body.username ;
   var password = req.body.password ;
 
