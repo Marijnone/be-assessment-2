@@ -195,7 +195,15 @@ function AddtoFestivalDB(req, res, next){
 }
 
 function RenderUsers(req, res, next){
-  connection.query("SELECT `id`, `username` FROM `gebruiker`;")
+  connection.query("SELECT `id`, `username` FROM `gebruiker`, done")
+
+  function done(err, data){
+    if (err){
+      next(err)
+    }else {
+      res.render('home.ejs', {data: data})  
+    }
+  }
 
 }
 
