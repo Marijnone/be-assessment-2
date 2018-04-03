@@ -182,8 +182,6 @@ function signUpForm(req, res, next) {
       oninsert
     );
 
-
-
     function oninsert(err) {
       if (err) {
         return next(err);
@@ -197,18 +195,25 @@ function signUpForm(req, res, next) {
 
 function AddtoFestivalDB(req, res, next){
   req
-  var festivals = req.body.festival
+  var festivals = req.body.festival;
+  var email = req.body.email;
   console.log(festivals);
   for (let index = 0; index < festivals.length; index++) {
     connection.query(
-      "INSERT INTO festival SET ?",
+      "INSERT INTO festivals SET email = ?",
       {
-        festival: req.body.festivals
+        festival: req.body.festivals[i]
         
       },
       oninsert
     );
-    
+    // function oninsert(err) {
+    //   if (err) {
+    //     return next(err);
+    //   }
+    //   req.session.user = {username: username}
+    //   return res.redirect("/festivals");
+    // }
   }
      
  
