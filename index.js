@@ -20,7 +20,7 @@ var connection = mysql.createConnection({
       return;
     }
   });
-  // console.log(connection);
+  // console.log(connection) dit is een test;
   
 var app = express()
   .set("views", "views")
@@ -183,7 +183,7 @@ function signUpForm(req, res, next) {
     );
 
 
-    
+
     function oninsert(err) {
       if (err) {
         return next(err);
