@@ -182,6 +182,8 @@ function signUpForm(req, res, next) {
       oninsert
     );
 
+
+    
     function oninsert(err) {
       if (err) {
         return next(err);
