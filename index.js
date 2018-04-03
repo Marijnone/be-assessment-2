@@ -65,7 +65,15 @@ function profile(req, res) {
 }
 
 function home(req, res) {
-  res.render("home.ejs");
+  connection.query("SELECT * FROM gebruiker", done)
+
+  function done(err, data){
+    if (err){
+      next(err)
+    }else {
+      res.render('home.ejs', {data: data})  
+    }
+  }
 }
 
 function login(req, res){
@@ -195,15 +203,7 @@ function AddtoFestivalDB(req, res, next){
 }
 
 function RenderUsers(req, res, next){
-  connection.query("SELECT `id`, `username` FROM `gebruiker`, done")
-
-  function done(err, data){
-    if (err){
-      next(err)
-    }else {
-      res.render('home.ejs', {data: data})  
-    }
-  }
+ 
 
 }
 

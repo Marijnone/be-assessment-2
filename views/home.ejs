@@ -29,14 +29,14 @@
     </div>
 
   <section class="matches">
-
+    <% data.forEach(function(entity) { %>
     <div class="card">
       <div class="card-header">
         <img src="https://images.unsplash.com/photo-1508021397575-6e9ca350cb12?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bc855e1cea3f2abe26b42bdfdaa653b5&auto=format&fit=crop&w=500&q=60"
         />
       </div>
       <div class="card-content">
-        <h3><%= data.username %></h3>
+        <h3><%= entity.username %></h3>
         <h4>Gaat naar Openair 📍</h4>
         <p>Ik hou enorm veel van dansen en sta het liefst de hele dag bij de techno tent. En hou enorm van Elrow</p>
         <div class="card-footer">
@@ -46,7 +46,7 @@
       </div>
      
     </div>
-
+    <% }) %>
     <div class="card">
       <div class="card-header">
         <img src="https://images.unsplash.com/photo-1498387727476-b30055b2ef21?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=753c6cf02995c1bfc3f015037549b06b&auto=format&fit=crop&w=500&q=60"
