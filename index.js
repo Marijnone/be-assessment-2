@@ -20,7 +20,7 @@ var connection = mysql.createConnection({
       return;
     }
   });
-  // console.log(connection) dit is een test;
+  // console.log(connection) dit is een;
   
 var app = express()
   .set("views", "views")
@@ -64,7 +64,7 @@ function festivals(req, res) {
 function profile(req, res) {
   res.render("profile.ejs");
 }
-
+// function to render users
 function home(req, res) {
   connection.query("SELECT * FROM gebruiker", done)
 
@@ -213,12 +213,6 @@ function AddtoFestivalDB(req, res, next){
      
  
 }
-
-function RenderUsers(req, res, next){
- 
-
-}
-
 function onServerStart() {
   console.log("🌐  Server started. http://localhost:3000")
 }
