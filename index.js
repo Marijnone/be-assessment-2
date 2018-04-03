@@ -45,6 +45,7 @@ var app = express()
   // app.post("/login", login);
   app.post("/register", signUpForm)
   app.post("/log-in",inloggen)
+  app.post("/festivals", AddtoFestivalDB)
 
   .listen(3000, onServerStart);
 
@@ -191,15 +192,24 @@ function signUpForm(req, res, next) {
   }
 }
 // WIP/////
+
 function AddtoFestivalDB(req, res, next){
-  connection.query(
-    "INSERT INTO festival SET ?",
-    {
-      naam: username,
-      
-    },
-    oninsert
-  );
+  req
+  var festivals = req.body.festival
+  console.log(festivals);
+  for (let index = 0; index < festivals.length; index++) {
+    connection.query(
+      "INSERT INTO festival SET ?",
+      {
+        festival: req.body.festivals
+        
+      },
+      oninsert
+    );
+    
+  }
+     
+ 
 }
 
 function RenderUsers(req, res, next){

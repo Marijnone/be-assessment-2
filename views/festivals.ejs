@@ -15,7 +15,7 @@
         <h3>Selecteer de festivals waar je naar toe gaat</h3>
     </aside>
     <section class="festivals">
-        <form>
+        <form action="/festivals" method="POST">
             <label class"f-1">  <h3>Open Air</h3> <input type="checkbox" name="festival" value="Open Air"> </label>
            
             <label class"f-2"> <h3>Awakenings Festival</h3> <input type="checkbox" name="festival" value="Awakenings Festival"> </label>
@@ -29,7 +29,11 @@
             <label class="f-6"> <h3>We are Electric</h3> <input type="checkbox" name="festival" value="We Are Electric">
           
             <label class="f-7"> <h3>Pink Pop</h3> <input type="checkbox" name="festival" value="Pink Pop">
-         
+                <div class="button-wrap">
+
+                    <button>Ga door</button> 
+                </div>
+          
         </form>
    
 
@@ -37,9 +41,6 @@
 
 
     </section>
-    <div class="button-wrap">
 
-            <form action="/home" method="get">  <button>Ga door</button> </form> 
-</div>
 </body>
 </html>
