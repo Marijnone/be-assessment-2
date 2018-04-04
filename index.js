@@ -9,6 +9,7 @@ var session = require("express-session");
 require("dotenv").config();
 
 var connection = mysql.createConnection({
+  debug:true,
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
@@ -45,7 +46,7 @@ var app = express()
   // app.post("/login", login);
   app.post("/register", signUpForm)
   app.post("/log-in",inloggen)
-  app.post("/festivals", AddtoFestivalDB)
+  // app.post("/festivals", AddtoFestivalDB)
 
   .listen(3000, onServerStart);
 
@@ -126,6 +127,7 @@ function inloggen(req, res, next){
     }
    }
  
+console.log(festivals);
 
 
 function signUpForm(req, res, next) {
@@ -135,6 +137,7 @@ function signUpForm(req, res, next) {
   var geslacht = req.body.geslacht;
   var voorkeur1 = req.body.voorkeur1;
   var opzoeknaar = req.body.opzoek;
+  var festivals = req.body.festival;
   var min = 8;
   var max = 160;
 
@@ -178,6 +181,7 @@ function signUpForm(req, res, next) {
         geslacht: geslacht,
         voorkeur1: voorkeur1,
         opzoeknaar: opzoeknaar,
+        festivals: festivals  
       },
       oninsert
     );
@@ -187,36 +191,34 @@ function signUpForm(req, res, next) {
         return next(err);
       }
       req.session.user = {username: username}
-      return res.redirect("/festivals");
+      return res.redirect("/home");
     }
   }
-}
+
 // WIP/////
 
-function AddtoFestivalDB(req, res, next){
-  req
-  var festivals = req.body.festival;
-  var email = req.body.email;
-  console.log(festivals);
-  for (let index = 0; index < festivals.length; index++) {
-    connection.query(
-      "INSERT INTO festivals SET email = ?",
-      {
-        festival: req.body.festivals[i]
-        
-      },
-      oninsert
-    );
-    // function oninsert(err) {
-    //   if (err) {
-    //     return next(err);
-    //   }
-    //   req.session.user = {username: username}
-    //   return res.redirect("/festivals");
-    // }
-  }
-     
- 
+// function AddtoFestivalDB(req, res, next){
+//   req
+//   var festivals = req.body.festival;
+//   var email = req.body.email;
+//   console.log(festivals);
+//   // for (let index = 0; index < festivals.length; index++) {
+//       connection.query(
+//       "INSERT INTO festivals SET ?",
+//       {
+//         festival: req.body.festivals,
+//         email: req.body.email
+//       }, 
+//       oninsert
+//     );
+
+//     function oninsert(err) {
+//       if (err) {
+//          next(err);
+//       }
+//       // req.session.user = {username: username}
+//       res.redirect("/festivals");
+//     }
 }
 function onServerStart() {
   console.log("🌐  Server started. http://localhost:3000")
