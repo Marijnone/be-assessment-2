@@ -6,7 +6,7 @@ App to meet new friends on festivals your visting 🎉
 
 # How to install
 
-## Windows 
+#### Windows 
 I strongy recommend to use bash on windows this makes development alot easier and alows you to run linux on windows which is great check the tutorial out here http://techgenix.com/bash-on-windows-10/
 
 
@@ -14,16 +14,16 @@ I strongy recommend to use bash on windows this makes development alot easier an
 1. create a directory for the repo ``` mkdir Festimatch ```
 2. navigate to the folder
 3. git clone https://github.com/Marijnone/be-assessement.git
-4. inside the folder npm install 
+4. inside the folder run ```npm install ```
 
 ## .env file 
 create .env file
 Inside the .env file you put
-DB_HOST=localhost
-DB_USER=youruser
-DB_NAME=Festimatch
-DB_PASSWORD=yourmysqlpassword
-SESSION_SECRET=your session secret
+* DB_HOST=localhost
+* DB_USER=youruser
+* DB_NAME=Festimatch
+* DB_PASSWORD=yourmysqlpassword
+* SESSION_SECRET=your session secret
  
  ## How to start
  
