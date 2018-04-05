@@ -9,6 +9,20 @@
     <title>profile</title>
 </head>
 <body>
-    
+
+    <article>
+            <!-- //Code from Slides lecture 4 if there is a user hello user if not sign in -->
+        <p> 
+                <% if (user) { %>
+                    Hallo <%= user.username %>!
+                    Jij gaat naar <% data.festival %>
+                  <% } else { %>
+                    <a href=/login>Log in</a>
+                    or
+                    <a href=/sign-up>Sign up</a>
+
+                  <% } %>  
+        </p>
+</article>
 </body>
 </html>

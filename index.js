@@ -15,10 +15,10 @@ var connection = mysql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
-})
-connection.connect(function (err) {
+});
+connection.connect(function(err) {
   if (err) {
-    console.error('error connecting: ' + err.stack);
+    console.error("error connecting: " + err.stack);
     return;
   }
 });
@@ -31,25 +31,27 @@ var app = express()
   .use(logger("dev"))
   .use(express.static(path.join(__dirname, "assets")))
   .use(express.static(path.join(__dirname, "js")))
-  .use(bodyParser.urlencoded({
-    extended: false
-  }))
-  .use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: process.env.SESSION_SECRET
-  }))
+  .use(
+    bodyParser.urlencoded({
+      extended: false
+    })
+  )
+  .use(
+    session({
+      resave: false,
+      saveUninitialized: true,
+      secret: process.env.SESSION_SECRET
+    })
+  );
 
 app.get("/account", account);
 app.get("/", index);
-// app.get("/festivals", festivals); not needed
 app.get("/home", home);
 app.get("/login", login);
+app.get("/profile", profile);
 
-// app.post("/login", login);
 app.post("/register", signUpForm);
 app.post("/log-in", inloggen);
-// app.post("/festivals", AddtoFestivalDB) not needed
 
 app.listen(3000, onServerStart);
 
@@ -61,24 +63,34 @@ function index(req, res) {
   res.render("index.ejs");
 }
 
-// function festivals(req, res) {
-//   res.render("festivals.ejs");
-// }
-
-function profile(req, res) {
-  res.render("profile.ejs");
-}
-// function to render users
-function home(req, res) {
-  connection.query("SELECT * FROM gebruiker", done)
+function profile(req, res, next) {
+  connection.query("SELECT * FROM gebruiker", done);
 
   function done(err, data) {
     if (err) {
-      next(err)
+      next(err);
     } else {
-      res.render('home.ejs', {
-        data: data
-      })
+      res.render("profile.ejs", {
+        data: data[0],
+        user: req.session.user //adding the user to the session to show right profile
+      });
+      console.log(data);
+    }
+  }
+}
+
+// function to render users
+function home(req, res) {
+  connection.query("SELECT * FROM gebruiker", done);
+
+  function done(err, data) {
+    if (err) {
+      next(err);
+    } else {
+      res.render("home.ejs", {
+        data: data,
+        user: req.session.user //adding the user to the session to show right profile
+      });
     }
   }
 }
@@ -92,32 +104,26 @@ function inloggen(req, res, next) {
   var password = req.body.password;
 
   if (!username || !password) {
-    res
-      .status(400)
-      .send('Username or password are missing')
+    res.status(400).send("Username or password are missing");
 
-    return
+    return;
   }
 
   connection.query(
-    'SELECT * FROM gebruiker WHERE username = ?',
+    "SELECT * FROM gebruiker WHERE username = ?",
     username,
     done
-  )
+  );
 
   function done(err, data) {
-    var user = data && data[0]
+    var user = data && data[0];
 
     if (err) {
-      next(err)
+      next(err);
     } else if (user) {
-      argon2
-        .verify(user.hash, password)
-        .then(onverify, next)
+      argon2.verify(user.hash, password).then(onverify, next);
     } else {
-      res
-        .status(401)
-        .send('Username does not exist')
+      res.status(401).send("Username does not exist");
     }
 
     function onverify(match) {
@@ -126,14 +132,13 @@ function inloggen(req, res, next) {
           username: user.username
         };
         // Logged in!
-        res.redirect('/home')
+        res.redirect("/home");
       } else {
-        res.status(401).send('Password incorrect')
+        res.status(401).send("Password incorrect");
       }
     }
   }
 }
-
 
 function signUpForm(req, res, next) {
   var username = req.body.username;
@@ -145,38 +150,37 @@ function signUpForm(req, res, next) {
   var festivals = req.body.festival;
   var min = 8;
   var max = 160;
-  var festivalEntries
+  var festivalEntries;
   console.log(req.body);
 
-
   if (!username || !password) {
-      return res.status(400).send("Username or password are missing");
+    return res.status(400).send("Username or password are missing");
   }
 
   if (password.length < min || password.length > max) {
-      return res
-          .status(400)
-          .send("Password must be between " + min + " and " + max + " characters");
+    return res
+      .status(400)
+      .send("Password must be between " + min + " and " + max + " characters");
   }
   connection.query(
-      "SELECT * FROM gebruiker WHERE username = ?",
-      username,
-      done
+    "SELECT * FROM gebruiker WHERE username = ?",
+    username,
+    done
   );
 
   function done(err, data) {
-      if (err) {
-          return next(err);
-      }
+    if (err) {
+      return next(err);
+    }
 
-      if (data.length !== 0) {
-          return res.status(409).send("Username already in use");
-      }
+    if (data.length !== 0) {
+      return res.status(409).send("Username already in use");
+    }
 
-      return argon2
-          .hash(password)
-          .then(saveToDatabase)
-          .catch(next);
+    return argon2
+      .hash(password)
+      .then(saveToDatabase)
+      .catch(next);
   }
 
   function saveToDatabase(hash) {
@@ -189,7 +193,7 @@ function signUpForm(req, res, next) {
         geslacht: geslacht,
         voorkeur1: voorkeur1,
         opzoeknaar: opzoeknaar,
-        festival: festivals  
+        festival: festivals
       },
       oninsert
     );
@@ -198,19 +202,12 @@ function signUpForm(req, res, next) {
       if (err) {
         return next(err);
       }
-      req.session.user = {username: username}
+      req.session.user = { username: username };
       return res.redirect("/home");
     }
   }
 }
 
-  function onServerStart() {
-    console.log("🌐  Server started. http://localhost:3000")
-
-    
-  
-  }
-
-
-
-
+function onServerStart() {
+  console.log("🌐  Server started. http://localhost:3000");
+}
