@@ -148,19 +148,6 @@ function signUpForm(req, res, next) {
   var festivalEntries
   console.log(req.body);
 
-  if (typeof req.body.festival == 'string') {
-      festivalEntries = {
-          festival: req.body.festival,
-          email:    req.body.email
-      }
-  } else {
-      festivalEntries = req.body.festival.map(function (festival) {
-          return {
-              festival: festival,
-              email: email
-          }
-      })
-  }
 
   if (!username || !password) {
       return res.status(400).send("Username or password are missing");
@@ -193,35 +180,37 @@ function signUpForm(req, res, next) {
   }
 
   function saveToDatabase(hash) {
-      connection.query(
-          "INSERT INTO gebruiker VALUES ?; INSERT INTO festivals VALUES ?", ([
-              {
-                  username: username,
-                  email: email,
-                  hash: hash,
-                  geslacht: geslacht,
-                  voorkeur1: voorkeur1,
-                  opzoeknaar: opzoeknaar
-              },
-              festivalEntries
-          ]),
-          oninsert
-      );
+    connection.query(
+      "INSERT INTO gebruiker SET ?",
+      {
+        username: username,
+        email: email,
+        hash: hash,
+        geslacht: geslacht,
+        voorkeur1: voorkeur1,
+        opzoeknaar: opzoeknaar,
+        festival: festivals  
+      },
+      oninsert
+    );
 
-      function oninsert(err) {
-          if (err) {
-              return next(err);
-          }
-          req.session.user = {
-              username: username
-          }
-          return res.redirect("/home");
+    function oninsert(err) {
+      if (err) {
+        return next(err);
       }
+      req.session.user = {username: username}
+      return res.redirect("/home");
+    }
   }
 }
+
   function onServerStart() {
     console.log("🌐  Server started. http://localhost:3000")
 
     
   
   }
+
+
+
+
