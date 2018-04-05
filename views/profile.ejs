@@ -15,7 +15,7 @@
         <p> 
                 <% if (user) { %>
                     Hallo <%= user.username %>!
-                    Jij gaat naar <% data.festival %>
+                    Jij gaat naar <%= user.festival %>
                   <% } else { %>
                     <a href=/login>Log in</a>
                     or

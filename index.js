@@ -1,5 +1,4 @@
 var path = require("path");
-
 var bodyParser = require("body-parser");
 var express = require("express");
 var logger = require("morgan");
@@ -49,6 +48,7 @@ app.get("/", index);
 app.get("/home", home);
 app.get("/login", login);
 app.get("/profile", profile);
+app.get("/logout", logout);
 
 app.post("/register", signUpForm);
 app.post("/log-in", inloggen);
@@ -71,7 +71,7 @@ function profile(req, res, next) {
       next(err);
     } else {
       res.render("profile.ejs", {
-        data: data[0],
+        data: data,
         user: req.session.user //adding the user to the session to show right profile
       });
       console.log(data);
@@ -97,6 +97,16 @@ function home(req, res) {
 
 function login(req, res) {
   res.render("login.ejs");
+}
+
+function logout(req,res, next) {
+  req.session.destroy(function(err){
+    if(err) {
+      next(err)
+    } else {
+      res.redirect("/")
+    }
+  }) 
 }
 
 function inloggen(req, res, next) {
