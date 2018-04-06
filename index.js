@@ -49,6 +49,7 @@ app.get("/home", home);
 app.get("/login", login);
 app.get("/profile", profile);
 app.get("/logout", logout);
+app.get("/:id", profiles)
 
 app.post("/register", signUpForm);
 app.post("/log-in", inloggen);
@@ -74,7 +75,27 @@ function profile(req, res, next) {
         data: data,
         user: req.session.user //adding the user to the session to show right profile
       });
-      console.log(data);
+      // console.log(data);
+    }
+  }
+}
+
+function profiles(req, res, next) { //to watch other profiles
+  var id = req.params.id;
+ 
+  console.log(id);
+
+
+  connection.query("SELECT * FROM gebruiker WHERE id = ?", id, done)
+
+  function done(err, data) {
+    if (err) {
+      next(err)
+    } else if(data.length === 0){
+      next()
+    } else {
+      res.render("detail.ejs", {data: data[0] });
+      // console.log(data);
     }
   }
 }
