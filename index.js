@@ -63,39 +63,22 @@ function account(req, res) {
 function index(req, res) {
   res.render("index.ejs");
 }
-<<<<<<< HEAD
-/**
- * 
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
- */
-function profile(req, res, next) { //to show you own profile
-  var id = req.params.id
-  connection.query("SELECT * FROM gebruiker WHERE username = ?", req.session.user, done)
-  function done(err, data) {
-=======
 
 function profile(req, res, next) {
   getLoggedInUser(req.session.user.username, onget)
 
   function onget(err, user) {
->>>>>>> f284216f68305f8ccb5ca19c95f4b561d178869d
     if (err) {
       next(err);
     } else {
       res.render("profile.ejs", {
         user //adding the user to the session to show right profile
       });
-<<<<<<< HEAD
-      console.log(data);
-=======
->>>>>>> f284216f68305f8ccb5ca19c95f4b561d178869d
     }
   }
 }
 
-function profiles(req, res, next) { //to render other profiles
+function profiles(req, res, next) { //to watch other profiles
   var id = req.params.id;
   connection.query("SELECT * FROM gebruiker WHERE id = ?", id, done)
   function done(err, data) {
@@ -105,12 +88,7 @@ function profiles(req, res, next) { //to render other profiles
       next()
     } else {
       res.render("detail.ejs", {
-<<<<<<< HEAD
-        data: data,
-       
-=======
         data,
->>>>>>> f284216f68305f8ccb5ca19c95f4b561d178869d
       });
       // console.log(data);
     }
@@ -119,7 +97,6 @@ function profiles(req, res, next) { //to render other profiles
 
 // function to render users
 function home(req, res) {
-  var id = req.params.id
   connection.query("SELECT * FROM gebruiker", done);
 
   function done(err, data) {
