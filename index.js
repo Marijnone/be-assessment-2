@@ -1,15 +1,15 @@
-var path = require("path");
-var bodyParser = require("body-parser");
-var express = require("express");
-var logger = require("morgan");
-var mysql = require("mysql");
-var argon2 = require("argon2");
-var session = require("express-session");
-require("dotenv").config();
+var path = require("path")
+var bodyParser = require("body-parser")
+var express = require("express")
+var logger = require("morgan")
+var mysql = require("mysql")
+var argon2 = require("argon2")
+var session = require("express-session")
+require("dotenv").config()
 
 var connection = mysql.createConnection({
   multipleStatements: true,
-  // debug: true,
+  debug: true,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -41,27 +41,27 @@ var app = express()
       saveUninitialized: true,
       secret: process.env.SESSION_SECRET
     })
-  );
+  )
 
-app.get("/account", account);
-app.get("/", index);
-app.get("/home", home);
-app.get("/login", login);
-app.get("/profile", profile);
-app.get("/logout", logout);
+app.get("/account", account)
+app.get("/", index)
+app.get("/home", home)
+app.get("/login", login)
+app.get("/profile", profile)
+app.get("/logout", logout)
 app.get("/:id", profiles)
 
-app.post("/register", signUpForm);
-app.post("/log-in", inloggen);
-
-app.listen(3000, onServerStart);
+app.post("/register", signUpForm)
+app.post("/log-in", inloggen)
+app.post("/updateUser", updateUser)
+app.listen(3000, onServerStart)
 
 function account(req, res) {
-  res.render("account.ejs");
+  res.render("account.ejs")
 }
 
 function index(req, res) {
-  res.render("index.ejs");
+  res.render("index.ejs")
 }
 
 function profile(req, res, next) {
@@ -97,11 +97,11 @@ function profiles(req, res, next) { //to watch other profiles
 
 // function to render users
 function home(req, res) {
-  connection.query("SELECT * FROM gebruiker", done);
+  connection.query("SELECT * FROM gebruiker", done)
 
   function done(err, data) {
     if (err) {
-      next(err);
+      next(err)
     } else {
       res.render("home.ejs", {
         data,
@@ -112,7 +112,7 @@ function home(req, res) {
 }
 
 function login(req, res) {
-  res.render("login.ejs");
+  res.render("login.ejs")
 }
 
 function logout(req,res, next) {
@@ -130,20 +130,20 @@ function inloggen(req, res, next) {
   var password = req.body.password;
 
   if (!username || !password) {
-    res.status(400).send("Username or password are missing");
+    res.status(400).send("Username or password are missing")
 
     return;
   }
 
-  getLoggedInUser(username, done);
+  getLoggedInUser(username, done)
 
   function done(err, user) {
     if (err) {
       next(err);
     } else if (user) {
-      argon2.verify(user.hash, password).then(onverify, next);
+      argon2.verify(user.hash, password).then(onverify, next)
     } else {
-      res.status(401).send("Username does not exist");
+      res.status(401).send("Username does not exist")
     }
 
     function onverify(match) {
@@ -154,7 +154,7 @@ function inloggen(req, res, next) {
         // Logged in!
         res.redirect("/home");
       } else {
-        res.status(401).send("Password incorrect");
+        res.status(401).send("Password incorrect")
       }
     }
   }
@@ -171,22 +171,22 @@ function signUpForm(req, res, next) {
   var min = 8;
   var max = 160;
   var festivalEntries;
-  console.log(req.body);
+  console.log(req.body)
 
   if (!username || !password) {
-    return res.status(400).send("Username or password are missing");
+    return res.status(400).send("Username or password are missing")
   }
 
   if (password.length < min || password.length > max) {
     return res
       .status(400)
-      .send("Password must be between " + min + " and " + max + " characters");
+      .send("Password must be between " + min + " and " + max + " characters")
   }
   connection.query(
     "SELECT * FROM gebruiker WHERE username = ?",
     username,
     done
-  );
+  )
 
   function done(err, data) {
     if (err) {
@@ -228,6 +228,30 @@ function signUpForm(req, res, next) {
   }
 }
 
+  function updateUser(req, res){
+  var username = req.body.username
+  var email = req.body.email
+  var geslacht = req.body.geslacht
+  var voorkeur1 = req.body.voorkeur1
+  var opzoeknaar = req.body.opzoeknaar
+
+  connection.query('UPDATE gebruiker SET ? WHERE username = ?',done [{
+    username: username,
+    email: email,
+    geslacht: geslacht,
+    voorkeur1: voorkeur1,
+    opzoeknaar: opzoeknaar,
+  }],)
+
+function done(err, data) {
+  console.log(data)
+  if (err) {
+      console.error(err)
+  } else {
+      profile(req, res)
+  }
+  }
+}
 function getLoggedInUser(username, cb) {
   connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
 

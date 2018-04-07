@@ -45,10 +45,11 @@ button {
   flex-wrap: wrap;
   margin-bottom: 6em; }
 
-.Form form {
+form {
   display: flex;
-  align-items: center;
-  flex-direction: column; }
+  align-items: left;
+  flex-direction: column;
+  margin-left: 2em; }
 
 label {
   font-family: 'Montserrat', sans-serif;

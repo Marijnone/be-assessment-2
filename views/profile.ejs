@@ -16,16 +16,51 @@
                
                 <% if (user) { %>
                     Hallo <%= user.username %>!
-                    Jij gaat naar <%= user.festival %> %>
+                    Jouw favoriete festival is <%= user.festival %> %>
                   <% } else { %>
+
+                    
                     
                     <a href=/login>Log in</a>
                     or
                     <a href=/sign-up>Sign up</a>
 
-                  <% } %>  
-                  
+                  <% } %>      
         </p>
+    <section class="aanpassen">
+            <h3>pas hier je gegevens aan</h3>
+
+            <form action="/updateUser" method="post">
+            
+                <label for="username">naam:</label>
+                <input name="username" type="text">
+    
+                <label for="email">E-mail</label>
+                <input type="email" name="email">
+    
+              
+    
+                <label for="voorkeur1"> Ben jij een danser of een zitter? 🕺</label>
+                <label for="voorkeur1">Danser </label>
+                <input type="radio" name="voorkeur1" value="dancer">
+                <label for="voorkeur1">Zitter</label>
+                <input type="radio" name="voorkeur1" value="zitter">
+    
+                <label for="opzoek">Ik ben opzoek naar een:</label>          
+                
+                    <select name="opzoek"> <!--Supplement an id here instead of using 'text'-->
+                    <option name="man" value="man">Man</option> 
+                    <option name="vrouw" value="vrouw">Vrouw</option>
+                    <option name="nogender" value="festivalmaatje">Festival maatje (Geslacht maakt niet uit)</option>
+                    </select>
+                <div class="button-wrap">   
+        
+                        <button>Aanpassen</button> 
+                </div>
+            </form>
+
+
+    </section>
 </article>
 </body>
 </html>
