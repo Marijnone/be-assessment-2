@@ -88,13 +88,16 @@ function profiles(req, res, next) { //to watch other profiles
 
   connection.query("SELECT * FROM gebruiker WHERE id = ?", id, done)
 
+
   function done(err, data) {
     if (err) {
       next(err)
     } else if(data.length === 0){
       next()
     } else {
-      res.render("detail.ejs", {data: data[0] });
+      res.render("detail.ejs", {
+        data: data,
+      });
       // console.log(data);
     }
   }

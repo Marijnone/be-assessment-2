@@ -4,14 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%= data.name %> | Shelter</title>
+    <link rel="stylesheet" href="css/main.css">
+    <title><%= data[0].username %></title>
 </head>
 <body>
     <section class="profile">
-            <h1><%= data.name %></h1>
-
-        
+        <article>
+            <img src="" alt="">
+            <h1>  <%= data[0].username %></h1>
+            
+            <p>Hallo ik ben <%= data[0].username %> , Ik ben opzoek naar een <%= data[0].opzoeknaar %>  </p>
+                <p>Geslacht: <%= data[0].geslacht %></p>
+            <p> En mijn favoriete festival is <%= data[0].festival %></p>
+            
+        </article>
     </section>
-    
+    <div class="tabbar">
+            <div class="tab-matchmaker">
+              <a href="/home"><p>Matchmaker</p> </a>
+            </div>
+            <div class="tab-chats">
+             <a href="#"> <p>Chats</p></a>
+            </div>
+            <div class="tab-account">
+           <a href="/profile">  <p>Settings & Profiel</p></a> 
+            </div>
+            <div class="tab-logout">
+              <a href="/logout"><p>log uit</p></a> 
+          </div>
 </body>
 </html>

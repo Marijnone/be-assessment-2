@@ -13,9 +13,10 @@
     <article>
             <!-- //Code from Slides lecture 4 if there is a user hello user if not sign in -->
         <p> 
+               
                 <% if (user) { %>
-                    Hallo <%= user.username %>!
-                    Jij gaat naar <%= user.festival %>
+                    Hallo <%=user.username %>!
+                    Jij gaat naar <%= data[0].festival %> %>
                   <% } else { %>
                     <a href=/login>Log in</a>
                     or
