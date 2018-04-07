@@ -9,7 +9,7 @@ require("dotenv").config()
 
 var connection = mysql.createConnection({
   multipleStatements: true,
-  debug: true,
+  // debug: true,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -54,6 +54,8 @@ app.get("/:id", profiles)
 app.post("/register", signUpForm)
 app.post("/log-in", inloggen)
 app.post("/updateUser", updateUser)
+app.get("/removeUser",removeUser)
+
 app.listen(3000, onServerStart)
 
 function account(req, res) {
@@ -253,6 +255,18 @@ function signUpForm(req, res, next) {
     }
   }
   
+function removeUser(req, res){
+  var username = req.session.user.username
+  connection.query('DELETE FROM gebruiker WHERE username = ?',username,done)
+  function done(err, data) {
+    console.log(username)
+    if (err) {
+        console.error(err)
+    } else {
+        res.redirect("/")
+    }
+  }
+}
     
 function getLoggedInUser(username, cb) {
   connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
