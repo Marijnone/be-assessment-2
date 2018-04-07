@@ -54,7 +54,7 @@ app.get("/:id", profiles)
 app.post("/register", signUpForm);
 app.post("/log-in", inloggen);
 
-app.listen(1337, onServerStart);
+app.listen(3000, onServerStart);
 
 function account(req, res) {
   res.render("account.ejs");
