@@ -65,30 +65,22 @@ function index(req, res) {
 }
 
 function profile(req, res, next) {
-  connection.query("SELECT * FROM gebruiker", done);
+  getLoggedInUser(req.session.user.username, onget)
 
-  function done(err, data) {
+  function onget(err, user) {
     if (err) {
       next(err);
     } else {
       res.render("profile.ejs", {
-        data: data,
-        user: req.session.user //adding the user to the session to show right profile
+        user //adding the user to the session to show right profile
       });
-      // console.log(data);
     }
   }
 }
 
 function profiles(req, res, next) { //to watch other profiles
   var id = req.params.id;
- 
-  console.log(id);
-
-
   connection.query("SELECT * FROM gebruiker WHERE id = ?", id, done)
-
-
   function done(err, data) {
     if (err) {
       next(err)
@@ -96,7 +88,7 @@ function profiles(req, res, next) { //to watch other profiles
       next()
     } else {
       res.render("detail.ejs", {
-        data: data,
+        data,
       });
       // console.log(data);
     }
@@ -112,8 +104,8 @@ function home(req, res) {
       next(err);
     } else {
       res.render("home.ejs", {
-        data: data,
-        user: req.session.user //adding the user to the session to show right profile
+        data,
+        user: req.session.user
       });
     }
   }
@@ -143,15 +135,9 @@ function inloggen(req, res, next) {
     return;
   }
 
-  connection.query(
-    "SELECT * FROM gebruiker WHERE username = ?",
-    username,
-    done
-  );
+  getLoggedInUser(username, done);
 
-  function done(err, data) {
-    var user = data && data[0];
-
+  function done(err, user) {
     if (err) {
       next(err);
     } else if (user) {
@@ -238,6 +224,18 @@ function signUpForm(req, res, next) {
       }
       req.session.user = { username: username };
       return res.redirect("/home");
+    }
+  }
+}
+
+function getLoggedInUser(username, cb) {
+  connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
+
+  function done(err, user) {
+    if (err) {
+      cb(err, null)
+    } else {
+      cb(null, user[0])
     }
   }
 }
