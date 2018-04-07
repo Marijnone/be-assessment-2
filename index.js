@@ -63,6 +63,7 @@ function account(req, res) {
 function index(req, res) {
   res.render("index.ejs");
 }
+<<<<<<< HEAD
 /**
  * 
  * @param {*} req 
@@ -73,27 +74,30 @@ function profile(req, res, next) { //to show you own profile
   var id = req.params.id
   connection.query("SELECT * FROM gebruiker WHERE username = ?", req.session.user, done)
   function done(err, data) {
+=======
+
+function profile(req, res, next) {
+  getLoggedInUser(req.session.user.username, onget)
+
+  function onget(err, user) {
+>>>>>>> f284216f68305f8ccb5ca19c95f4b561d178869d
     if (err) {
       next(err);
     } else {
       res.render("profile.ejs", {
-        data: data,
-        user: req.session.user //adding the user to the session to show right profile
+        user //adding the user to the session to show right profile
       });
+<<<<<<< HEAD
       console.log(data);
+=======
+>>>>>>> f284216f68305f8ccb5ca19c95f4b561d178869d
     }
   }
 }
 
 function profiles(req, res, next) { //to render other profiles
   var id = req.params.id;
- 
-  console.log(id);
-
-
   connection.query("SELECT * FROM gebruiker WHERE id = ?", id, done)
-
-
   function done(err, data) {
     if (err) {
       next(err)
@@ -101,8 +105,12 @@ function profiles(req, res, next) { //to render other profiles
       next()
     } else {
       res.render("detail.ejs", {
+<<<<<<< HEAD
         data: data,
        
+=======
+        data,
+>>>>>>> f284216f68305f8ccb5ca19c95f4b561d178869d
       });
       // console.log(data);
     }
@@ -119,8 +127,8 @@ function home(req, res) {
       next(err);
     } else {
       res.render("home.ejs", {
-        data: data,
-        user: req.session.user //adding the user to the session to show right profile
+        data,
+        user: req.session.user
       });
     }
   }
@@ -150,15 +158,9 @@ function inloggen(req, res, next) {
     return;
   }
 
-  connection.query(
-    "SELECT * FROM gebruiker WHERE username = ?",
-    username,
-    done
-  );
+  getLoggedInUser(username, done);
 
-  function done(err, data) {
-    var user = data && data[0];
-
+  function done(err, user) {
     if (err) {
       next(err);
     } else if (user) {
@@ -245,6 +247,18 @@ function signUpForm(req, res, next) {
       }
       req.session.user = { username: username };
       return res.redirect("/home");
+    }
+  }
+}
+
+function getLoggedInUser(username, cb) {
+  connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
+
+  function done(err, user) {
+    if (err) {
+      cb(err, null)
+    } else {
+      cb(null, user[0])
     }
   }
 }

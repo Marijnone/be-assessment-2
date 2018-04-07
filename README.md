@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-# Festimatch
-
-App to meet new friends on festivals your visting 🎉
-=======
 # Festimatch
 
 App to meet new friends on festivals your visting 🎉
 
-## Build with node.js express and sass
+#### Build with node.js express and sass
 
 # How to install
 
@@ -29,12 +24,10 @@ Inside the .env file you put
 * DB_NAME=Festimatch
 * DB_PASSWORD=yourmysqlpassword
 * SESSION_SECRET=your session secret
- 
- ## How to start
- 
- * There are three command needed to start the webapp
- * first inside your bash start your mysql server with ````sudo service mysql start```
- * then ```run watch-css ```
- * and after that npm start
- 
->>>>>>> 3fdee037d69b180e2b49b4aa26f1a579ff5b0ced
+
+## How to start
+
+* There are three command needed to start the webapp
+* first inside your bash start your mysql server with ````sudo service mysql start```
+* then ```run watch-css ```
+* and after that npm start
