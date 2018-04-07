@@ -72,7 +72,6 @@ function profile(req, res, next) {
       next(err);
     } else {
       res.render("profile.ejs", {
-        data,
         user //adding the user to the session to show right profile
       });
     }
@@ -89,7 +88,7 @@ function profiles(req, res, next) { //to watch other profiles
       next()
     } else {
       res.render("detail.ejs", {
-        data: data,
+        data,
       });
       // console.log(data);
     }
