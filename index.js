@@ -235,23 +235,25 @@ function signUpForm(req, res, next) {
   var voorkeur1 = req.body.voorkeur1
   var opzoeknaar = req.body.opzoeknaar
 
-  connection.query('UPDATE gebruiker SET ? WHERE username = ?',done [{
+  connection.query('UPDATE gebruiker SET ? WHERE username = ?',[{
     username: username,
     email: email,
     geslacht: geslacht,
     voorkeur1: voorkeur1,
     opzoeknaar: opzoeknaar,
-  }],)
+  }, username], done)
 
-function done(err, data) {
-  console.log(data)
-  if (err) {
-      console.error(err)
-  } else {
-      profile(req, res)
+      function done(err, data) {
+        console.log(data)
+        if (err) {
+            console.error(err)
+        } else {
+            profile(req, res)
+        }
+    }
   }
-  }
-}
+  
+    
 function getLoggedInUser(username, cb) {
   connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
 
