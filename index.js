@@ -63,10 +63,15 @@ function account(req, res) {
 function index(req, res) {
   res.render("index.ejs");
 }
-
-function profile(req, res, next) {
-  connection.query("SELECT * FROM gebruiker", done);
-
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function profile(req, res, next) { //to show you own profile
+  var id = req.params.id
+  connection.query("SELECT * FROM gebruiker WHERE username = ?", req.session.user, done)
   function done(err, data) {
     if (err) {
       next(err);
@@ -75,12 +80,12 @@ function profile(req, res, next) {
         data: data,
         user: req.session.user //adding the user to the session to show right profile
       });
-      // console.log(data);
+      console.log(data);
     }
   }
 }
 
-function profiles(req, res, next) { //to watch other profiles
+function profiles(req, res, next) { //to render other profiles
   var id = req.params.id;
  
   console.log(id);
@@ -97,6 +102,7 @@ function profiles(req, res, next) { //to watch other profiles
     } else {
       res.render("detail.ejs", {
         data: data,
+       
       });
       // console.log(data);
     }
@@ -105,6 +111,7 @@ function profiles(req, res, next) { //to watch other profiles
 
 // function to render users
 function home(req, res) {
+  var id = req.params.id
   connection.query("SELECT * FROM gebruiker", done);
 
   function done(err, data) {

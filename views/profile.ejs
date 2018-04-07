@@ -16,13 +16,15 @@
                
                 <% if (user) { %>
                     Hallo <%=user.username %>!
-                    Jij gaat naar <%= data[0].festival %> %>
+                    Jouw favoriete festival is <%= data.festival %>
                   <% } else { %>
+                    
                     <a href=/login>Log in</a>
                     or
                     <a href=/sign-up>Sign up</a>
 
                   <% } %>  
+                  
         </p>
 </article>
 </body>
