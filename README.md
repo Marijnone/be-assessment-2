@@ -2,7 +2,7 @@
 
 App to meet new friends on festivals your visting 🎉
 
-## Build with node.js express and sass
+#### Build with node.js express and sass
 
 # How to install
 
