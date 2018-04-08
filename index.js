@@ -24,13 +24,14 @@ connection.connect(function(err) {
 });
 
 
-var upload = multer({dest:'assets/upload/'})
+var upload = multer({dest: 'assets/uploads/'})
 
 var app = express()
   .set("views", "views")
   .set("view engine", "ejs")
 
   .use(logger("dev"))
+  .use(express.static("static"))
   .use(express.static("assets"))
   // .use(express.static("upload"))
   .use(express.static("js"))
@@ -55,7 +56,7 @@ app.get("/profile", profile)
 app.get("/logout", logout)
 app.get("/:id", profiles)
 
-app.post("/register",upload.single("image"), signUpForm)
+app.post("/register",upload.single('image'), signUpForm)
 app.post("/log-in", inloggen)
 app.post("/updateUser", updateUser)
 app.get("/removeUser",removeUser)
