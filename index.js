@@ -6,6 +6,7 @@ var mysql = require("mysql")
 var argon2 = require("argon2")
 var session = require("express-session")
 var multer = require("multer")
+var fs = require('fs');
 require("dotenv").config()
 
 var connection = mysql.createConnection({
@@ -74,16 +75,32 @@ function index(req, res) {
 function profile(req, res, next) {
   getLoggedInUser(req.session.user.username, onget)
 
-  function onget(err, user) {
+
+  function onget(err, user,) {
     if (err) {
       next(err);
     } else {
       res.render("profile.ejs", {
-        user //adding the user to the session to show right profile
+        user,
+     
+         //adding the user to the session to show right profile
       });
     }
   }
 }
+ 
+// function Renderdata(req, res,next){
+//   if (err) {
+//     next(err);
+//   } else {
+//     res.render("profile.ejs", {
+//       data
+//        //adding the user to the session to show right profile
+//       });
+//     }
+//   }
+
+
 
 function profiles(req, res, next) { //to watch other profiles
   var id = req.params.id;
@@ -221,20 +238,29 @@ function signUpForm(req, res, next) {
         voorkeur1: voorkeur1,
         opzoeknaar: opzoeknaar,
         festival: festivals,
-        profileimage: image
       },
       oninsert
     );
 
-    function oninsert(err) {
+    function oninsert(err, data) {
       if (err) {
         return next(err);
+      } else {
+        if (req.file) {  //Credit to Jim van de Ven this function renames the image to the id so i can use it in data.user
+          console.log("There was a file: ", req.file)
+          fs.rename(req.file.path, 'assets/uploads/' + data.insertId + '.jpg', err => {
+              if (err) {
+                  console.error(err)
+                 }
+              })
+            }   
+          }
+        }
       }
       req.session.user = { username: username };
       return res.redirect("/home");
     }
-  }
-}
+  
 
   function updateUser(req, res){
   var username = req.body.username
@@ -277,11 +303,11 @@ function removeUser(req, res){
 function getLoggedInUser(username, cb) {
   connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
 
-  function done(err, user) {
+  function done(err, user,) {
     if (err) {
       cb(err, null)
     } else {
-      cb(null, user[0])
+      cb(null, user[0],)
     }
   }
 }
