@@ -112,7 +112,7 @@ function profiles(req, res, next) { //to watch other profiles
       next()
     } else {
       res.render("detail.ejs", {
-        data,
+        data
       });
       // console.log(data);
     }

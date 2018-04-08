@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
 
-    <title>profile</title>
+    <title><%= user.username %></title>
 </head>
 <body>
-
+        <div class="img-wrap">  
     <img class="avatar" src="/uploads/<%= user.id %>.jpg" alt="">
-
+</div>
     <article>
             <!-- //Code from Slides lecture 4 if there is a user hello user if not sign in -->
         <p> 
@@ -69,5 +69,18 @@
 
     </section>
 </article>
+<div class="tabbar">
+        <div class="tab-matchmaker">
+          <a href="/home"><p>Matchmaker</p> </a>
+        </div>
+        <div class="tab-chats">
+         <a href="#"> <p>Chats</p></a>
+        </div>
+        <div class="tab-account">
+       <a href="/profile">  <p>Settings & Profiel</p></a> 
+        </div>
+        <div class="tab-logout">
+          <a href="/logout"><p>log uit</p></a> 
+      </div>
 </body>
 </html>
