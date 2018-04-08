@@ -5,6 +5,7 @@ var logger = require("morgan")
 var mysql = require("mysql")
 var argon2 = require("argon2")
 var session = require("express-session")
+var multer = require("multer")
 require("dotenv").config()
 
 var connection = mysql.createConnection({
@@ -21,15 +22,18 @@ connection.connect(function(err) {
     return;
   }
 });
-// console.log(connection) dit is een;
+
+
+var upload = multer({dest:'assets/upload/'})
 
 var app = express()
   .set("views", "views")
   .set("view engine", "ejs")
 
   .use(logger("dev"))
-  .use(express.static(path.join(__dirname, "assets")))
-  .use(express.static(path.join(__dirname, "js")))
+  .use(express.static("assets"))
+  // .use(express.static("upload"))
+  .use(express.static("js"))
   .use(
     bodyParser.urlencoded({
       extended: false
@@ -51,7 +55,7 @@ app.get("/profile", profile)
 app.get("/logout", logout)
 app.get("/:id", profiles)
 
-app.post("/register", signUpForm)
+app.post("/register",upload.single("image"), signUpForm)
 app.post("/log-in", inloggen)
 app.post("/updateUser", updateUser)
 app.get("/removeUser",removeUser)
@@ -170,9 +174,9 @@ function signUpForm(req, res, next) {
   var voorkeur1 = req.body.voorkeur1;
   var opzoeknaar = req.body.opzoek;
   var festivals = req.body.festival;
+  var image = req.file ? req.file.filename : null;
   var min = 8;
   var max = 160;
-  var festivalEntries;
   console.log(req.body)
 
   if (!username || !password) {
@@ -215,7 +219,8 @@ function signUpForm(req, res, next) {
         geslacht: geslacht,
         voorkeur1: voorkeur1,
         opzoeknaar: opzoeknaar,
-        festival: festivals
+        festival: festivals,
+        profileimage: image
       },
       oninsert
     );
