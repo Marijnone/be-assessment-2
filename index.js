@@ -17,7 +17,7 @@ var connection = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
 });
-connection.connect(function(err) {
+connection.connect(function (err) {
   if (err) {
     console.error("error connecting: " + err.stack);
     return;
@@ -25,7 +25,9 @@ connection.connect(function(err) {
 });
 
 
-var upload = multer({dest: 'assets/uploads/'})
+var upload = multer({
+  dest: 'assets/uploads/'
+})
 
 var app = express()
   .set("views", "views")
@@ -34,7 +36,6 @@ var app = express()
   .use(logger("dev"))
   .use(express.static("static"))
   .use(express.static("assets"))
-  // .use(express.static("upload"))
   .use(express.static("js"))
   .use(
     bodyParser.urlencoded({
@@ -56,11 +57,12 @@ app.get("/login", login)
 app.get("/profile", profile)
 app.get("/logout", logout)
 app.get("/:id", profiles)
+app.get("/removeUser", removeUser)
 
-app.post("/register",upload.single('image'), signUpForm)
+app.post("/register", upload.single('image'), signUpForm)
 app.post("/log-in", inloggen)
 app.post("/updateUser", updateUser)
-app.get("/removeUser",removeUser)
+
 
 app.listen(3000, onServerStart)
 
@@ -76,50 +78,37 @@ function profile(req, res, next) {
   getLoggedInUser(req.session.user.username, onget)
 
 
-  function onget(err, user,) {
+  function onget(err, user, ) {
     if (err) {
       next(err);
     } else {
       res.render("profile.ejs", {
         user,
-     
-         //adding the user to the session to show right profile
+
+        //adding the user to the session to show right profile with this
       });
     }
   }
 }
- 
-// function Renderdata(req, res,next){
-//   if (err) {
-//     next(err);
-//   } else {
-//     res.render("profile.ejs", {
-//       data
-//        //adding the user to the session to show right profile
-//       });
-//     }
-//   }
-
-
 
 function profiles(req, res, next) { //to watch other profiles
   var id = req.params.id;
   connection.query("SELECT * FROM gebruiker WHERE id = ?", id, done)
+
   function done(err, data) {
     if (err) {
       next(err)
-    } else if(data.length === 0){
+    } else if (data.length === 0) {
       next()
     } else {
       res.render("detail.ejs", {
         data
       });
-      // console.log(data);
     }
   }
 }
 
-// function to render users
+// function to render users on the homepage
 function home(req, res) {
   connection.query("SELECT * FROM gebruiker", done)
 
@@ -139,16 +128,16 @@ function login(req, res) {
   res.render("login.ejs")
 }
 
-function logout(req,res, next) {
-  req.session.destroy(function(err){
-    if(err) {
+function logout(req, res, next) {
+  req.session.destroy(function (err) {
+    if (err) {
       next(err)
     } else {
       res.redirect("/")
     }
-  }) 
+  })
 }
-
+//Function to log the user in and check their password
 function inloggen(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
@@ -183,7 +172,7 @@ function inloggen(req, res, next) {
     }
   }
 }
-
+//signup form function user body parser to grab form input
 function signUpForm(req, res, next) {
   var username = req.body.username;
   var email = req.body.email;
@@ -229,8 +218,7 @@ function signUpForm(req, res, next) {
 
   function saveToDatabase(hash) {
     connection.query(
-      "INSERT INTO gebruiker SET ?",
-      {
+      "INSERT INTO gebruiker SET ?", {
         username: username,
         email: email,
         hash: hash,
@@ -246,30 +234,32 @@ function signUpForm(req, res, next) {
       if (err) {
         return next(err);
       } else {
-        if (req.file) {  //Credit to Jim van de Ven this function renames the image to the id so i can use it in data.user
+        if (req.file) { //Credit to Jim van de Ven this function renames the image to the id so i can use it in data.user or user.data depends on the .render and match it to the user
           console.log("There was a file: ", req.file)
           fs.rename(req.file.path, 'assets/uploads/' + data.insertId + '.jpg', err => {
-              if (err) {
-                  console.error(err)
-                 }
-              })
-            }   
-          }
+            if (err) {
+              console.error(err)
+            }
+          })
         }
       }
-      req.session.user = { username: username };
-      return res.redirect("/home");
     }
-  
+  }
+  req.session.user = {
+    username: username
+  };
+  return res.redirect("/home");
+}
 
-  function updateUser(req, res){
+
+function updateUser(req, res) {
   var username = req.body.username
   var email = req.body.email
   var geslacht = req.body.geslacht
   var voorkeur1 = req.body.voorkeur1
   var opzoeknaar = req.body.opzoeknaar
-
-  connection.query('UPDATE gebruiker SET ? WHERE username = ?',[{
+//function to let a user update their profile
+  connection.query('UPDATE gebruiker SET ? WHERE username = ?', [{
     username: username,
     email: email,
     geslacht: geslacht,
@@ -277,37 +267,38 @@ function signUpForm(req, res, next) {
     opzoeknaar: opzoeknaar,
   }, username], done)
 
-      function done(err, data) {
-        console.log(data)
-        if (err) {
-            console.error(err)
-        } else {
-            profile(req, res)
-        }
-    }
-  }
-  
-function removeUser(req, res){
-  var username = req.session.user.username
-  connection.query('DELETE FROM gebruiker WHERE username = ?',username,done)
   function done(err, data) {
-    console.log(username)
+    console.log(data)
     if (err) {
-        console.error(err)
+      console.error(err)
     } else {
-        res.redirect("/")
+      profile(req, res)
     }
   }
 }
-    
+//function to let a user remove their account
+function removeUser(req, res) {
+  var username = req.session.user.username
+  connection.query('DELETE FROM gebruiker WHERE username = ?', username, done)
+
+  function done(err, data) {
+    console.log(username)
+    if (err) {
+      console.error(err)
+    } else {
+      res.redirect("/")
+    }
+  }
+}
+//this function finds the user and assign the right session to it this to show the right festival and other details on their owm profile page
 function getLoggedInUser(username, cb) {
   connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
 
-  function done(err, user,) {
+  function done(err, user, ) {
     if (err) {
       cb(err, null)
     } else {
-      cb(null, user[0],)
+      cb(null, user[0], )
     }
   }
 }

@@ -4,6 +4,13 @@ body {
   margin: 0;
   background-color: #ecf0f1; }
 
+header {
+  background-color: #f4f4f4;
+  height: 4em;
+  position: relative;
+  top: -1.3em;
+  box-shadow: 0px 2px 2px 0px #b9b9b98c; }
+
 p {
   font-family: 'Montserrat'; }
 

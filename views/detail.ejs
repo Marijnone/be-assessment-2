@@ -8,9 +8,12 @@
     <title><%= data[0].username %></title>
 </head>
 <body>
+        <div class="img-wrap">  
+        <img class="avatar" src="/uploads/<%= data[0].id %>.jpg" alt="">
+        </div>
     <section class="profile">
         <article>
-            <img src="" alt="">
+                
             <h1>  <%= data[0].username %></h1>
             
             <p>Hallo ik ben <%= data[0].username %> , Ik ben opzoek naar een <%= data[0].opzoeknaar %>  </p>
