@@ -11,7 +11,7 @@ require("dotenv").config()
 
 var connection = mysql.createConnection({
   multipleStatements: true,
-  // debug: true,
+  debug: true,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -33,7 +33,7 @@ var app = express()
   .set("views", "views")
   .set("view engine", "ejs")
 
-  .use(logger("dev"))
+  // .use(logger("dev"))
   .use(express.static("static"))
   .use(express.static("assets"))
   .use(express.static("js"))
@@ -84,7 +84,6 @@ function profile(req, res, next) {
     } else {
       res.render("profile.ejs", {
         user,
-
         //adding the user to the session to show right profile with this
       });
     }
@@ -293,7 +292,7 @@ function removeUser(req, res) {
 //this function finds the user and assign the right session to it this to show the right festival and other details on their owm profile page
 function getLoggedInUser(username, cb) {
   connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
-
+//null is an empty error err if null
   function done(err, user, ) {
     if (err) {
       cb(err, null)
