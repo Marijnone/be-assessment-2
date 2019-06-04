@@ -33,7 +33,7 @@ var app = express()
   .set("views", "views")
   .set("view engine", "ejs")
 
-  .use(logger("dev"))
+  // .use(logger("dev"))
   .use(express.static("static"))
   .use(express.static("assets"))
   .use(express.static("js"))
@@ -84,7 +84,6 @@ function profile(req, res, next) {
     } else {
       res.render("profile.ejs", {
         user,
-
         //adding the user to the session to show right profile with this
       });
     }
