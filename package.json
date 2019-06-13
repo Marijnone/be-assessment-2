@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js && service mysql start"
+    "start": "node index.js && service mysql start"
   },
   "events": {
     "restart": "npm run watch-css",
