@@ -7,11 +7,12 @@ var argon2 = require("argon2")
 var session = require("express-session")
 var multer = require("multer")
 var fs = require('fs');
+var PORT = process.env.PORT || 5000
 require("dotenv").config()
 
 var connection = mysql.createConnection({
   multipleStatements: true,
-  debug: true,
+  // debug: true,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -64,7 +65,7 @@ app.post("/log-in", inloggen)
 app.post("/updateUser", updateUser)
 
 
-app.listen(3000, onServerStart)
+app.listen(PORT, onServerStart)
 
 function account(req, res) {
   res.render("account.ejs")
@@ -303,5 +304,5 @@ function getLoggedInUser(username, cb) {
 }
 
 function onServerStart() {
-  console.log("🌐  Server started. http://localhost:3000");
+  console.log(`🌐  Server started. http://localhost:${ PORT }`);
 }
