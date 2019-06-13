@@ -6,10 +6,6 @@
   "scripts": {
     "start": "node index.js && service mysql start"
   },
-  "events": {
-    "restart": "npm run watch-css",
-    "start": "npm run watch-css"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Marijnone/be-assessment-2.git"
@@ -40,6 +36,7 @@
     "nodemon": "^1.18.11"
   },
   "engines": {
-    "node": "11.x"
+    "node": "9.5.0",
+    "npm": "6.1.0"
   }
 }
