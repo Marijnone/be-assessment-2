@@ -11,7 +11,7 @@ require("dotenv").config()
 
 var connection = mysql.createConnection({
   multipleStatements: true,
-  debug: true,
+  // debug: true,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
