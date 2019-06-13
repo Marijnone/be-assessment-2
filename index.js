@@ -1,7 +1,6 @@
 var path = require("path")
 var bodyParser = require("body-parser")
 var express = require("express")
-var logger = require("morgan")
 var mysql = require("mysql")
 var argon2 = require("argon2")
 var session = require("express-session")
