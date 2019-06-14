@@ -1,7 +1,6 @@
 var path = require("path")
 var bodyParser = require("body-parser")
 var express = require("express")
-var logger = require("morgan")
 var mysql = require("mysql")
 var argon2 = require("argon2")
 var session = require("express-session")
@@ -12,7 +11,7 @@ require("dotenv").config()
 
 var connection = mysql.createConnection({
   multipleStatements: true,
-  // debug: true,
+  debug: true,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
