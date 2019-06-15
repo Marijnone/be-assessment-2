@@ -16,7 +16,8 @@ var connection = mysql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  // net_write_timeout: 250000
+  wait_timeout:28800,
+  connect_timeout:10
 });
 
 connection.connect(function(err) {
@@ -30,7 +31,11 @@ connection.connect(function(err) {
 
 connection.on('error', function(err) {
   console.log(err.code); // 'ER_BAD_DB_ERROR'
+ 
 });
+setInterval(function () {
+  connection.query('SELECT 1');
+}, 5000);
 
 
 var upload = multer({
@@ -156,6 +161,19 @@ function inloggen(req, res, next) {
   }
 
   getLoggedInUser(username, done)
+
+  function getLoggedInUser(username, cb) {
+    connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
+  //null is an empty error err if null
+    function done(err, user, ) {
+      if (err) {
+        cb(err, null)
+      } else {
+        cb(null, user[0], )
+      }
+    }
+  }
+
 
   function done(err, user) {
     if (err) {
@@ -298,17 +316,7 @@ function removeUser(req, res) {
   }
 }
 //this function finds the user and assign the right session to it this to show the right festival and other details on their owm profile page
-function getLoggedInUser(username, cb) {
-  connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
-//null is an empty error err if null
-  function done(err, user, ) {
-    if (err) {
-      cb(err, null)
-    } else {
-      cb(null, user[0], )
-    }
-  }
-}
+
 
 function onServerStart() {
   console.log(`🌐  Server started. http://localhost:${ PORT }`);
