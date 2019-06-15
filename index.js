@@ -26,11 +26,6 @@ connection.connect(function (err) {
     
     // connection.connect() //try
 
-    if (err.code === 'PROTOCOL_CONNECTION_LOST')
-    connection.connect(function (err){
-      console.log('trying to reconnect');
-      
-    })
     // console.log(err.code);
     return;
   }
