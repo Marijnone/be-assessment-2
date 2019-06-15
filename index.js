@@ -162,17 +162,7 @@ function inloggen(req, res, next) {
 
   getLoggedInUser(username, done)
 
-  function getLoggedInUser(username, cb) {
-    connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
-  //null is an empty error err if null
-    function done(err, user, ) {
-      if (err) {
-        cb(err, null)
-      } else {
-        cb(null, user[0], )
-      }
-    }
-  }
+
 
 
   function done(err, user) {
@@ -316,7 +306,17 @@ function removeUser(req, res) {
   }
 }
 //this function finds the user and assign the right session to it this to show the right festival and other details on their owm profile page
-
+function getLoggedInUser(username, cb) {
+  connection.query('SELECT * FROM gebruiker WHERE username = ?', username, done)
+//null is an empty error err if null
+  function done(err, user, ) {
+    if (err) {
+      cb(err, null)
+    } else {
+      cb(null, user[0], )
+    }
+  }
+}
 
 function onServerStart() {
   console.log(`🌐  Server started. http://localhost:${ PORT }`);
