@@ -56,7 +56,7 @@ function replaceClientOnDisconnect(connection) {
       });
   });
 }
-replaceClientOnDisconnect(client);
+replaceClientOnDisconnect(connection);
 
 
 
