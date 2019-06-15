@@ -6,7 +6,7 @@ var argon2 = require("argon2")
 var session = require("express-session")
 var multer = require("multer")
 var fs = require('fs');
-var PORT = process.env.PORT
+var PORT = process.env.PORT || 5000
 require("dotenv").config()
 
 var connection = mysql.createConnection({
@@ -30,34 +30,6 @@ connection.connect(function (err) {
     return;
   }
 });
-
-function replaceClientOnDisconnect(connection) {
-  connection.on("error", function (err) {
-      if (!err.fatal) {
-          return;
-      }
-
-      if (err.code !== "PROTOCOL_CONNECTION_LOST") {
-        console.log('connection closed');
-        
-          throw err;
-      }
-
-
-
-      replaceconnectionOnDisconnect(connection);
-      connection.connect(function (error) {
-          if (error) {
-              // Well, we tried. The database has probably fallen over.
-              // That's fairly fatal for most applications, so we might as
-              // call it a day and go home.
-              process.exit(1);
-          }
-      });
-  });
-}
-replaceClientOnDisconnect(connection);
-
 
 
 
