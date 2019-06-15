@@ -6,7 +6,7 @@ var argon2 = require("argon2")
 var session = require("express-session")
 var multer = require("multer")
 var fs = require('fs');
-var PORT = process.env.PORT || 5000
+var PORT = process.env.PORT
 require("dotenv").config()
 
 var connection = mysql.createConnection({
@@ -30,11 +30,6 @@ connection.connect(function (err) {
     return;
   }
 });
-
-
-
-
-
 
 
 
