@@ -10,27 +10,27 @@ var PORT = process.env.PORT || 5000
 require("dotenv").config()
 
 var connection = mysql.createConnection({
-  connectTimeout: 10000,
   multipleStatements: true,
-  debug: true,
+  // debug: true,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
+  // net_write_timeout: 250000
 });
-connection.connect(function (err) {
-  if (err) {
-    console.log(err.code);
-    console.error("error connecting: " + err.stack);
-    
-    
-    // connection.connect() //try
 
-    // console.log(err.code);
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
     return;
   }
+ 
+  console.log('connected as id ' + connection.threadId);
 });
 
+connection.on('error', function(err) {
+  console.log(err.code); // 'ER_BAD_DB_ERROR'
+});
 
 
 var upload = multer({
