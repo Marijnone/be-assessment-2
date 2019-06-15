@@ -20,12 +20,17 @@ var connection = mysql.createConnection({
 });
 connection.connect(function (err) {
   if (err) {
-    console.error("error connecting: " + err.stack);
     console.log(err.code);
+    console.error("error connecting: " + err.stack);
+    
     
     // connection.connect() //try
 
-    // if (err === 'PROTOCOL_CONNECTION_LOST')
+    if (err.code === 'PROTOCOL_CONNECTION_LOST')
+    connection.connect(function (err){
+      console.log('trying to reconnect');
+      
+    })
     // console.log(err.code);
     return;
   }
