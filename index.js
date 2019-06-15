@@ -10,6 +10,7 @@ var PORT = process.env.PORT || 5000
 require("dotenv").config()
 
 var connection = mysql.createConnection({
+  connectTimeout: 10000,
   multipleStatements: true,
   debug: true,
   host: process.env.DB_HOST,
@@ -20,9 +21,14 @@ var connection = mysql.createConnection({
 connection.connect(function (err) {
   if (err) {
     console.error("error connecting: " + err.stack);
+    connection.connect() //try
     return;
   }
 });
+
+
+
+
 
 
 var upload = multer({
