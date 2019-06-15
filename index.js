@@ -31,6 +31,34 @@ connection.connect(function (err) {
   }
 });
 
+function replaceClientOnDisconnect(connection) {
+  connection.on("error", function (err) {
+      if (!err.fatal) {
+          return;
+      }
+
+      if (err.code !== "PROTOCOL_CONNECTION_LOST") {
+        console.log('connection closed');
+        
+          throw err;
+      }
+
+
+
+      replaceconnectionOnDisconnect(connection);
+      connection.connect(function (error) {
+          if (error) {
+              // Well, we tried. The database has probably fallen over.
+              // That's fairly fatal for most applications, so we might as
+              // call it a day and go home.
+              process.exit(1);
+          }
+      });
+  });
+}
+replaceClientOnDisconnect(client);
+
+
 
 
 var upload = multer({
